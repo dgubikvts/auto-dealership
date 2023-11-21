@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\VehicleController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/vehicle/create', [VehicleController::class, 'create'])->middleware('auth.basic.once');
