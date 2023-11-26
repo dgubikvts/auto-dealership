@@ -19,8 +19,30 @@ class Vehicle extends Model
         'fuel' => FuelEnum::class,
     ];
 
+    protected $fillable = [
+        'brand',
+        'vehicle_type',
+        'wheels',
+        'transmission',
+        'fuel',
+        'model',
+        'year',
+        'mileage',
+        'price'
+    ];
+
     public function brand(): HasOne
     {
         return $this->hasOne(Brand::class);
+    }
+
+    public function getPriceAttribute(): float|int
+    {
+        return $this->attributes['price'] / 100;
+    }
+
+    public function setPriceAttribute($value): void
+    {
+        $this->attributes['price'] = $value * 100;
     }
 }

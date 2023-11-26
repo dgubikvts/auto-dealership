@@ -4,7 +4,7 @@ namespace App\Enum;
 
 enum FuelEnum: string
 {
-    case PETROL = 'petrol';
-    case DIESEL = 'diesel';
-    case ELECTRIC = 'electric';
+    case PETROL = 'Petrol';
+    case DIESEL = 'Diesel';
+    case ELECTRIC = 'Electric';
 }

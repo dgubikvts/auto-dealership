@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('brand')->references('id')->on('brands');
-            $table->string('type');
+            $table->foreignId('brand')->nullable()->constrained('brands')->nullOnDelete();
+            $table->string('vehicle_type');
             $table->string('wheels');
+            $table->string('transmission');
             $table->string('fuel');
             $table->string('model');
             $table->integer('year');
