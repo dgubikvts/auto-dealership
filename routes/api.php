@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\FilterVehicleController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,12 +16,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/brand/create', [BrandController::class, 'create'])->middleware('auth.basic.once');
+Route::middleware('auth.basic.once')->group(function() {
+    Route::controller(BrandController::class)->group(function(){
+        Route::prefix('brand')->group(function() {
+            Route::post('/create', 'create');
+            Route::middleware('brand.exists')->group(function() {
+                Route::post('/delete', 'delete');
+            });
+        });
+    });
 
-Route::post('/brand/delete', [BrandController::class, 'delete'])->middleware('auth.basic.once', 'brand.exists');
+    Route::controller(VehicleController::class)->group(function(){
+        Route::prefix('vehicle')->group(function() {
+            Route::post('/create', 'create');
+            Route::middleware('vehicle.exists')->group(function() {
+                Route::post('/update', 'update');
+                Route::post('/delete', 'delete');
+            });
+        });
+    });
 
-Route::post('/vehicle/create', [VehicleController::class, 'create'])->middleware('auth.basic.once');
-
-Route::post('/vehicle/update', [VehicleController::class, 'update'])->middleware('auth.basic.once', 'vehicle.exists');
-
-Route::post('/vehicle/delete', [VehicleController::class, 'delete'])->middleware('auth.basic.once', 'vehicle.exists');
+    Route::controller(FilterVehicleController::class)->group(function(){
+        Route::get('/vehicles', 'index');
+    });
+});
