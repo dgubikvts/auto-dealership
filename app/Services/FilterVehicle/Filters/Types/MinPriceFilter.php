@@ -2,9 +2,9 @@
 
 namespace App\Services\FilterVehicle\Filters\Types;
 
-use App\Services\FilterVehicle\Filters\AbstractTypes\MinFilter;
+use App\Services\FilterVehicle\Filters\AbstractTypes\AbstractMinFilter;
 
-class MinPriceFilter extends MinFilter
+class MinPriceFilter extends AbstractMinFilter
 {
     protected string $type = 'min-price';
 

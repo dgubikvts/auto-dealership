@@ -3,7 +3,7 @@
 namespace App\Services\FilterVehicle\Filters\Types;
 
 use App\Services\FilterVehicle\Filters\AbstractFilter;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class SearchFilter extends AbstractFilter
 {
@@ -11,8 +11,8 @@ class SearchFilter extends AbstractFilter
 
     protected string $field = 'model';
 
-    public function apply(Collection &$data, mixed $value): void
+    public function apply(Builder &$data, mixed $value): void
     {
-        $data = $data->filter(fn($item) => stristr($item->{$this->field}, $value));
+        $data = $data->where($this->field, 'LIKE', $value);
     }
 }

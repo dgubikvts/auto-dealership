@@ -3,9 +3,9 @@
 namespace App\Services\FilterVehicle\Filters\Types;
 
 use App\Enum\FuelEnum;
-use App\Services\FilterVehicle\Filters\AbstractTypes\EnumFilter;
+use App\Services\FilterVehicle\Filters\AbstractTypes\AbstractEnumFilter;
 
-class FuelFilter extends EnumFilter
+class FuelFilter extends AbstractEnumFilter
 {
     protected string $type = 'fuel';
 

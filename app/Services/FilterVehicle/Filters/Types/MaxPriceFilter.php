@@ -2,9 +2,9 @@
 
 namespace App\Services\FilterVehicle\Filters\Types;
 
-use App\Services\FilterVehicle\Filters\AbstractTypes\MaxFilter;
+use App\Services\FilterVehicle\Filters\AbstractTypes\AbstractMaxFilter;
 
-class MaxPriceFilter extends MaxFilter
+class MaxPriceFilter extends AbstractMaxFilter
 {
     protected string $type = 'max-price';
 

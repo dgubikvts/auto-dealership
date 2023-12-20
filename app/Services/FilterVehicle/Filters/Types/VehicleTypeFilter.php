@@ -3,9 +3,9 @@
 namespace App\Services\FilterVehicle\Filters\Types;
 
 use App\Enum\VehicleTypeEnum;
-use App\Services\FilterVehicle\Filters\AbstractTypes\EnumFilter;
+use App\Services\FilterVehicle\Filters\AbstractTypes\AbstractEnumFilter;
 
-class VehicleTypeFilter extends EnumFilter
+class VehicleTypeFilter extends AbstractEnumFilter
 {
     protected string $type = 'vehicle_type';
 

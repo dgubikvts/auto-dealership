@@ -2,7 +2,7 @@
 
 namespace App\Services\FilterVehicle\Filters;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 abstract class AbstractFilter
 {
@@ -10,11 +10,11 @@ abstract class AbstractFilter
 
     protected string $field;
 
-    public function maybeApplyFilter(Collection &$data, array $params): void
+    public function maybeApplyFilter(Builder &$data, array $params): void
     {
         if(isset($params[$this->type]))
             $this->apply($data, $params[$this->type]);
     }
 
-    public abstract function apply(Collection &$data, mixed $value): void;
+    public abstract function apply(Builder &$data, mixed $value): void;
 }

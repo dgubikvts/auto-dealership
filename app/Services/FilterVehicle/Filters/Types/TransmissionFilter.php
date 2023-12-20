@@ -3,9 +3,9 @@
 namespace App\Services\FilterVehicle\Filters\Types;
 
 use App\Enum\TransmissionEnum;
-use App\Services\FilterVehicle\Filters\AbstractTypes\EnumFilter;
+use App\Services\FilterVehicle\Filters\AbstractTypes\AbstractEnumFilter;
 
-class TransmissionFilter extends EnumFilter
+class TransmissionFilter extends AbstractEnumFilter
 {
     protected string $type = 'transmission';
 
