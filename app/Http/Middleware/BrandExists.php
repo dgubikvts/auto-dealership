@@ -16,14 +16,14 @@ class BrandExists
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!isset($request->id)) return \response()->json(['error' => 'Brand id is required!']);
+        if(!isset($request->id)) return \response()->json(['errors' => ['id' => 'Brand id is required!']], 422);
 
-        $vehicle = Brand::find($request->id);
-        if(!$vehicle){
-            return \response()->json(['Brand with id ' . $request->id . ' does not exist!']);
+        $brand = Brand::find($request->id);
+        if(!$brand){
+            return \response()->json(['errors' => ['id' => 'Brand with id ' . $request->id . ' does not exist!']], 422);
         }
 
-        $request->attributes->add(['brand' => $vehicle]);
+        $request->attributes->add(['brand' => $brand]);
 
         return $next($request);
     }

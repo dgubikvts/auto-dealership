@@ -30,6 +30,6 @@ class BrandStoreRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json($validator->getMessageBag()->getMessages(), 422));
+        throw new HttpResponseException(response()->json(['errors' => $validator->getMessageBag()->getMessages()], 422));
     }
 }

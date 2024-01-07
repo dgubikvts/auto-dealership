@@ -47,14 +47,6 @@ class VehiclesTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function test_create_vehicle_success(): void
-    {
-        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/create', $this->vehicleData);
-
-        $response->assertStatus(200);
-        $response->assertJson(['success' => true]);
-    }
-
     public function test_create_vehicle_with_invalid_arguments_returns_validation_errors(): void
     {
         $data = [
@@ -75,6 +67,14 @@ class VehiclesTest extends TestCase
         $response->assertJsonValidationErrors(array_keys($data));
     }
 
+    public function test_create_vehicle_success(): void
+    {
+        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/create', $this->vehicleData);
+
+        $response->assertStatus(200);
+        $response->assertJson(['success' => true]);
+    }
+
     public function test_unauthorized_request_cannot_update_vehicle()
     {
         $data = [
@@ -85,19 +85,6 @@ class VehiclesTest extends TestCase
         $response = $this->post('/api/vehicle/update', $data);
 
         $response->assertStatus(401);
-    }
-
-    public function test_update_vehicle_success()
-    {
-        $data = [
-            'id' => Vehicle::factory()->create()->id,
-            'model' => Str::random(8),
-        ];
-
-        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/update', $data);
-
-        $response->assertStatus(200);
-        $response->assertJson(['success' => true]);
     }
 
     public function test_update_vehicle_with_invalid_arguments_throws_errors()
@@ -121,6 +108,19 @@ class VehiclesTest extends TestCase
         $response->assertJsonValidationErrors(['brand_id', 'vehicle_type', 'wheels', 'transmission', 'fuel', 'model', 'year', 'mileage', 'price']);
     }
 
+    public function test_update_vehicle_success()
+    {
+        $data = [
+            'id' => Vehicle::factory()->create()->id,
+            'model' => Str::random(8),
+        ];
+
+        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/update', $data);
+
+        $response->assertStatus(200);
+        $response->assertJson(['success' => true]);
+    }
+
     public function test_unauthorized_request_cannot_delete_vehicle()
     {
         $vehicle = Vehicle::create($this->vehicleData);
@@ -132,7 +132,7 @@ class VehiclesTest extends TestCase
 
     public function test_delete_vehicle_with_missing_arguments_throws_error()
     {
-        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/update');
+        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/delete');
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrorFor('id');
@@ -142,7 +142,7 @@ class VehiclesTest extends TestCase
     {
         $vehicle = Vehicle::create($this->vehicleData);
 
-        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/update', ['vehicle_id' => $vehicle->id]);
+        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/delete', ['vehicle_id' => $vehicle->id]);
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrorFor('id');
@@ -152,7 +152,7 @@ class VehiclesTest extends TestCase
     {
         $vehicle = Vehicle::create($this->vehicleData);
 
-        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/update', ['id' => $vehicle->id]);
+        $response = $this->withBasicAuth(config('app.admin_email'), config('app.admin_password'))->post('/api/vehicle/delete', ['id' => $vehicle->id]);
 
         $response->assertStatus(200);
         $response->assertJson(['success' => true]);
