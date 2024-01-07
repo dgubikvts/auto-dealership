@@ -16,11 +16,11 @@ class VehicleExists
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!isset($request->id)) return \response()->json(['error' => 'Vehicle id is required!']);
+        if(!isset($request->id)) return \response()->json(['errors' => ['id' => 'Vehicle id is required!']], 422);
 
         $vehicle = Vehicle::find($request->id);
         if(!$vehicle){
-            return \response()->json(['error' => 'Vehicle with id ' . $request->id . ' does not exist!']);
+            return \response()->json(['errors' => ['id' => 'Vehicle with id ' . $request->id . ' does not exist!']], 422);
         }
 
         $request->attributes->add(['vehicle' => $vehicle]);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VehicleStoreRequest;
+use App\Http\Requests\VehicleUpdateRequest;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class VehicleController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function update(VehicleStoreRequest $request)
+    public function update(VehicleUpdateRequest $request)
     {
         $validated = $request->validated();
         $vehicle = $request->get('vehicle');

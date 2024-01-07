@@ -5,6 +5,10 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
+    'admin_username' => env('ADMIN_USERNAME'),
+    'admin_email' => env('ADMIN_EMAIL'),
+    'admin_password' => env('ADMIN_PASSWORD'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

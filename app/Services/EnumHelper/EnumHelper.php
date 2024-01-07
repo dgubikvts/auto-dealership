@@ -13,11 +13,11 @@ class EnumHelper
         return constant("$class::$case");
     }
 
-    public static function valueExists(string $name, mixed $value)
+    public static function valueExists(string $name, mixed $value): bool
     {
         $name = ucfirst(Str::camel($name));
         $class = "App\\Enum\\{$name}Enum";
-        if(!class_exists($class)) return null;
-        return $class::tryFrom($value);
+        if(!class_exists($class)) return false;
+        return (bool)$class::tryFrom($value);
     }
 }

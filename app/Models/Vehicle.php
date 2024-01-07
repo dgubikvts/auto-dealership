@@ -22,7 +22,7 @@ class Vehicle extends Model
     ];
 
     protected $fillable = [
-        'brand',
+        'brand_id',
         'vehicle_type',
         'wheels',
         'transmission',
